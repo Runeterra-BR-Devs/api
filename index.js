@@ -42,6 +42,12 @@ app.get('/lvlup/:name', (req, res) => {
     });
 
     if (!card) {
+        card = dataset.find(e => {
+            return e.name.toLowerCase() == aliases[req.params.name.toLowerCase()].toLowerCase();
+        });
+    }
+
+    if (!card) {
         res.status(404).json({
             message: 'Não encontrado'
         });
