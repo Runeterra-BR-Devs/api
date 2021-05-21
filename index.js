@@ -36,6 +36,23 @@ app.get('/cards/:name', (req, res) => {
     res.json(card);
 });
 
+app.get('/lvlup/:name', (req, res) => {
+    var card = dataset.find(e => {
+        return e.name.toLowerCase() == req.params.name.toLowerCase() && e.supertype == 'Campeão';
+    });
+
+    if (!card) {
+        res.status(404).json({
+            message: 'Não encontrado'
+        });
+    }
+
+    res.json({
+        name: card.name,
+        levelUp: card.levelupDescriptionRaw
+    });
+});
+
 app.get('/random', (req, res) => {
     const subdataset = dataset.filter(e => e.type != 'Habilidade');
 
